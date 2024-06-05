@@ -3,47 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planet Speebs Casino</title>
+    <title>Planet Speebs Casino Clicker</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id="game-container">
-        <div id="home-screen" class="screen">
-            <h1>Planet Speebs Casino</h1>
-            <button onclick="startGame()">Start Game</button>
-        </div>
-        <div id="game-screen" class="screen hidden">
-            <h1>Casino</h1>
-            <button onclick="playPoker()">Play Poker</button>
-            <button onclick="playSlots()">Play Slots</button>
-            <button onclick="managePepMines()">Manage Pep Mines</button>
-            <button onclick="goHome()">Home</button>
-        </div>
-        <div id="poker-screen" class="screen hidden">
-            <h1>Poker</h1>
-            <div id="poker-table">
-                <p>Your hand: <span id="poker-hand"></span></p>
-                <button onclick="drawPokerHand()">Draw Hand</button>
-            </div>
-            <button onclick="goBackToGame()">Back to Casino</button>
-        </div>
-        <div id="slots-screen" class="screen hidden">
-            <h1>Slots</h1>
-            <div id="slots-machine">
-                <p>Slots: <span id="slots-result"></span></p>
-                <button onclick="spinSlots()">Spin</button>
-            </div>
-            <button onclick="goBackToGame()">Back to Casino</button>
-        </div>
-        <div id="pep-mines-screen" class="screen hidden">
-            <h1>Pep Mines</h1>
-            <div id="pep-mines">
+        <!-- Main Screen -->
+        <div id="main-screen" class="screen active">
+            <h1>Planet Speebs Casino Clicker</h1>
+            <div id="pep-count-container">
                 <p>Pep Collected: <span id="pep-count">0</span></p>
-                <button onclick="collectPep()">Collect Pep</button>
-                <button onclick="upgradeMines()">Upgrade Mines</button>
             </div>
-            <button onclick="goBackToGame()">Back to Casino</button>
+            <div id="pep-collection-container">
+                <button id="collect-pep-btn" onclick="collectPep()">Collect Pep</button>
+            </div>
+            <div id="upgrades-container">
+                <div class="upgrade-item">
+                    <button id="upgrade-mines-btn" onclick="upgradeMines()">Upgrade Mines</button>
+                    <p>Cost: <span id="upgrade-cost">10</span> Pep</p>
+                </div>
+                <div class="upgrade-item">
+                    <button id="upgrade-passive-income-btn" onclick="upgradePassiveIncome()">Upgrade Passive Income</button>
+                    <p>Cost: <span id="passive-income-cost">50</span> Pep</p>
+                </div>
+            </div>
+            <div id="passive-income-container">
+                <p>Current Passive Income: <span id="passive-income-rate">0</span> Pep/second</p>
+            </div>
         </div>
+        <!-- Notification Element -->
+        <div id="notification" class="notification"></div>
     </div>
     <script src="js/app.js"></script>
 </body>

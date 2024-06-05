@@ -1,83 +1,62 @@
-document.addEventListener("DOMContentLoaded", function() {
-    showScreen('home-screen');
-});
-
-function showScreen(screenId) {
-    const screens = document.querySelectorAll('.screen');
-    screens.forEach(screen => screen.classList.add('hidden'));
-    document.getElementById(screenId).classList.remove('hidden');
-}
-
-function startGame() {
-    showScreen('game-screen');
-}
-
-function playPoker() {
-    showScreen('poker-screen');
-}
-
-function playSlots() {
-    showScreen('slots-screen');
-}
-
-function managePepMines() {
-    showScreen('pep-mines-screen');
-}
-
-function goHome() {
-    showScreen('home-screen');
-}
-
-function goBackToGame() {
-    showScreen('game-screen');
-}
-
-function drawPokerHand() {
-    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-    const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-    let hand = [];
-
-    for (let i = 0; i < 5; i++) {
-        const card = `${ranks[Math.floor(Math.random() * ranks.length)]} of ${suits[Math.floor(Math.random() * suits.length)]}`;
-        hand.push(card);
-    }
-
-    document.getElementById('poker-hand').innerText = hand.join(', ');
-}
-
-function spinSlots() {
-    const symbols = ['🍒', '🍋', '🍉', '🔔', '⭐'];
-    let result = [];
-
-    for (let i = 0; i < 3; i++) {
-        const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-        result.push(symbol);
-    }
-
-    document.getElementById('slots-result').innerText = result.join(' | ');
-
-    if (result[0] === result[1] && result[1] === result[2]) {
-        alert("Jackpot! You win!");
-    } else {
-        alert("Try again!");
-    }
-}
-
 let pepCount = 0;
 let mineLevel = 1;
+let passiveIncomeRate = 0;
+let upgradeCost = 10;
+let passiveIncomeCost = 50;
+
+document.addEventListener("DOMContentLoaded", function() {
+    updateUI();
+    startPassiveIncome();
+});
 
 function collectPep() {
     pepCount += mineLevel;
-    document.getElementById('pep-count').innerText = pepCount;
+    updateUI();
 }
 
 function upgradeMines() {
-    if (pepCount >= 10 * mineLevel) {
-        pepCount -= 10 * mineLevel;
+    if (pepCount >= upgradeCost) {
+        pepCount -= upgradeCost;
         mineLevel++;
-        document.getElementById('pep-count').innerText = pepCount;
-        alert(`Mines upgraded to level ${mineLevel}`);
+        upgradeCost = 10 * mineLevel;
+        updateUI();
+        showNotification(`Mines upgraded to level ${mineLevel}`);
     } else {
-        alert('Not enough pep to upgrade.');
+        showNotification('Not enough pep to upgrade.');
     }
+}
+
+function upgradePassiveIncome() {
+    if (pepCount >= passiveIncomeCost) {
+        pepCount -= passiveIncomeCost;
+        passiveIncomeRate++;
+        passiveIncomeCost = 50 * passiveIncomeRate;
+        updateUI();
+        showNotification(`Passive income increased to ${passiveIncomeRate} pep/second`);
+    } else {
+        showNotification('Not enough pep to upgrade.');
+    }
+}
+
+function updateUI() {
+    document.getElementById('pep-count').innerText = pepCount;
+    document.getElementById('upgrade-cost').innerText = upgradeCost;
+    document.getElementById('passive-income-cost').innerText = passiveIncomeCost;
+    document.getElementById('passive-income-rate').innerText = passiveIncomeRate;
+}
+
+function startPassiveIncome() {
+    setInterval(() => {
+        pepCount += passiveIncomeRate;
+        updateUI();
+    }, 1000);
+}
+
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.innerText = message;
+    notification.style.display = 'block';
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 3000);
 }

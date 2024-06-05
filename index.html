@@ -26,6 +26,24 @@
                     <button id="upgrade-passive-income-btn" onclick="upgradePassiveIncome()">Upgrade Passive Income</button>
                     <p>Cost: <span id="passive-income-cost">50</span> Pep</p>
                 </div>
+                <!-- Tier 2 Upgrades -->
+                <div class="upgrade-item tier-2" style="display: none;">
+                    <button id="double-collection-btn" onclick="doubleCollection()">Double Pep Collection</button>
+                    <p>Cost: <span id="double-collection-cost">500</span> Pep</p>
+                </div>
+                <div class="upgrade-item tier-2" style="display: none;">
+                    <button id="auto-collector-btn" onclick="autoCollector()">Auto Collector</button>
+                    <p>Cost: <span id="auto-collector-cost">750</span> Pep</p>
+                </div>
+                <!-- Tier 3 Upgrades -->
+                <div class="upgrade-item tier-3" style="display: none;">
+                    <button id="triple-collection-btn" onclick="tripleCollection()">Triple Pep Collection</button>
+                    <p>Cost: <span id="triple-collection-cost">2000</span> Pep</p>
+                </div>
+                <div class="upgrade-item tier-3" style="display: none;">
+                    <button id="pep-multiplier-btn" onclick="pepMultiplier()">Pep Multiplier</button>
+                    <p>Cost: <span id="pep-multiplier-cost">3000</span> Pep</p>
+                </div>
             </div>
             <div id="passive-income-container">
                 <p>Current Passive Income: <span id="passive-income-rate">0</span> Pep/second</p>
